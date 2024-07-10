@@ -3,12 +3,10 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.ai.service.AIService;
 
-import com.Name_Flow.Name_Flow_Server.dto.CreateVariableNameRequestDTO;
-import com.Name_Flow.Name_Flow_Server.dto.CreateVariableNameResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.*;
+import com.Name_Flow.Name_Flow_Server.service.authentication.AuthenticationService;
 import com.Name_Flow.Name_Flow_Server.service.variableSuggest.VariableSuggestService;
 
-import com.Name_Flow.Name_Flow_Server.dto.RegistrationRequestDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
 import com.Name_Flow.Name_Flow_Server.service.registration.RegistrationService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +21,7 @@ public class UserController {
 
     private final RegistrationService registrationService;
     private final VariableSuggestService variableSuggestService;
-
+    private final AuthenticationService authenticationService;
 
     @Qualifier("AIService")
     private final AIService aiService;
@@ -48,6 +46,13 @@ public class UserController {
             ) throws MessagingException {
         return registrationService.verifyActivationCode(registrationRequestDTO);
 
+    }
+
+    @PostMapping("/authentication")
+    public ResponseEntity<AuthenticationResponseDTO> authenticate(
+            @RequestBody AuthenticationRequestDTO authenticationRequestDTO
+    ) {
+        return ResponseEntity.ok(authenticationService.authenticate(authenticationRequestDTO));
     }
 
 }
