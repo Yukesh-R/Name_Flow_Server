@@ -6,32 +6,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name="veirification_data")
+@Table(name="user_access_relation_data")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class VerificationData {
+public class UserAccessRelationData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auto_id")
     private Long id;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="user_id")
+    private Long userId;
 
-    @Column(name="activationCode")
-    private String activationCode;
+    @Column(name="access_user_id")
+    private Long accessUserId;
 
-    @Column(name="createdData")
-    private LocalDateTime createdDate;
+    @Column(name="access_project_id")
+    private Long accessProjectId;
 
-    @Column(name="expiresData")
-    private LocalDateTime expiresDate;
+    @Column(name="is_access_accepted")
+    private boolean isAccessAccepted;
 
 }
