@@ -1,6 +1,7 @@
 package com.Name_Flow.Name_Flow_Server.service.userRelationShip;
 
 import com.Name_Flow.Name_Flow_Server.dto.CreateRelationShipDTO;
+import com.Name_Flow.Name_Flow_Server.dto.RemoveProjectAccessDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
 import com.Name_Flow.Name_Flow_Server.emailsender.EmailService;
 import com.Name_Flow.Name_Flow_Server.emailsender.EmailTemplateName;
@@ -9,6 +10,7 @@ import com.Name_Flow.Name_Flow_Server.repository.*;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -106,6 +108,21 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
         return ResponseDTO.builder()
                 .status(true)
                 .message("Access Accepted Successfully")
+                .build();
+    }
+
+    @Override
+    @Transactional
+    public ResponseDTO removeAccess(RemoveProjectAccessDTO removeProjectAccessDTO) {
+
+        userAccessRelationDataRepository.deleteByUserIdAndAccessProjectId(
+                removeProjectAccessDTO.getAccess_remove_user_id(),
+                removeProjectAccessDTO.getAccess_remove_project_id()
+        );
+
+        return ResponseDTO.builder()
+                .status(true)
+                .message("Access Removed Successfully")
                 .build();
     }
 }

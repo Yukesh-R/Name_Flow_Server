@@ -11,4 +11,6 @@ public interface UserAccessRelationDataRepository extends JpaRepository<UserAcce
 
     List<UserAccessRelationData> findAllByUserId(Long user_id);
 
+    void deleteByUserIdAndAccessProjectId(Long user_id,Long accessProjectId);
+
 }
