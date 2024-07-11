@@ -21,10 +21,7 @@
     }
     .middle{
         font-size: large;
-    }
-    .activation_code{
-        font-size: xxx-large;
-        text-align: center;
+        font-weight: bold;
     }
 </style>
 </head>
@@ -33,7 +30,9 @@
     <p class="welcome">Welcome to Name Flow</p>
     <p class="email_verify">Project Access Notification</p>
     <p class="username" th:text="'Hello'+' '+${userName}+','"></p>
-    <p class="middle">Thank you for Creating Account with us, Here is your Activation Code You can use this and create your account successfully</p>
+    <p class="middle">Thank you for Creating Account with us,</p>
+    <p class="username" th:text="'ACCESS PROVIDER : '+' '+${accessProvider}+','"></p>
+    <p class="middle">This person provide You the Access for his project to work with you , You can Respond to this Request by Login to your Account</p>
 </div>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class UserController {
     private final AuthenticationService authenticationService;
 
 
-    @PostMapping("/registration/emailValidation/{email}")
+    @PostMapping("/registration/email-validation/{email}")
     public ResponseEntity<ResponseDTO> registrationEmailValidation(
             @PathVariable String email
     ) throws MessagingException {
