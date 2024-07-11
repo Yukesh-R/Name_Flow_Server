@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 public class RemoveProjectAccessDTO {
 
+    private Long userId;
+
     private Long access_remove_user_id;
 
     private Long access_remove_project_id;

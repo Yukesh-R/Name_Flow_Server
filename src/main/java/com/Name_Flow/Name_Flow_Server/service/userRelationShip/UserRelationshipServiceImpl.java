@@ -25,6 +25,7 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
     private final UserAccessRelationDataRepository userAccessRelationDataRepository;
     private final EmailService emailService;
     private final UserDataRepository userDataRepository;
+    private final ProjectDataRepository projectDataRepository;
 
     @Override
     public ResponseDTO createRelationship(CreateRelationShipDTO createRelationShipDTO) throws MessagingException {
@@ -66,6 +67,7 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
                 createRelationShipDTO.getEmailToRelation(),
                 sharedUserData.getFirstName()+sharedUserData.getLastName(),
                 providedUser.getFirstName()+providedUser.getLastName(),
+                "",
                 EmailTemplateName.ACCESS_NOTIFY,
                 "",
                 "Project Access Notification"
@@ -113,11 +115,43 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
 
     @Override
     @Transactional
-    public ResponseDTO removeAccess(RemoveProjectAccessDTO removeProjectAccessDTO) {
+    public ResponseDTO removeAccess(RemoveProjectAccessDTO removeProjectAccessDTO) throws MessagingException {
 
         userAccessRelationDataRepository.deleteByUserIdAndAccessProjectId(
                 removeProjectAccessDTO.getAccess_remove_user_id(),
                 removeProjectAccessDTO.getAccess_remove_project_id()
+        );
+
+        String toEmail=userAuthenticationRepository.findByUserId(
+                removeProjectAccessDTO.getAccess_remove_user_id()
+                ).getEmail();
+
+        UserData accessGetter=userDataRepository.findById(
+                removeProjectAccessDTO.getAccess_remove_user_id())
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+        String accessGetterName= accessGetter.getFirstName()+accessGetter.getLastName();
+
+        UserData accessProvider=userDataRepository.findById(
+                removeProjectAccessDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("User Not Found"));
+
+        String providerName= accessProvider.getFirstName()+accessProvider.getLastName();
+
+        ProjectData accessDeniedProjectData=projectDataRepository.findById(
+                removeProjectAccessDTO.getAccess_remove_project_id())
+                .orElseThrow(() -> new RuntimeException("Project Not Found"));
+
+        String accessDeniedProjectName=accessDeniedProjectData.getProjectName();
+
+        emailService.sendEmail(
+                toEmail,
+                accessGetterName,
+                providerName,
+                accessDeniedProjectName,
+                EmailTemplateName.ACCESS_REMOVE,
+                "",
+                "project Access Denied/Removed"
         );
 
         return ResponseDTO.builder()

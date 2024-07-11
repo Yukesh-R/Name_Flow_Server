@@ -13,6 +13,6 @@ public interface UserRelationshipService {
 
     ResponseDTO relationAccessAcceptance(Long accepted_used_id);
 
-    ResponseDTO removeAccess(RemoveProjectAccessDTO removeProjectAccessDTO);
+    ResponseDTO removeAccess(RemoveProjectAccessDTO removeProjectAccessDTO) throws MessagingException;
 
 }

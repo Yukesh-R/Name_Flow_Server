@@ -43,6 +43,7 @@ public class RegistrationServiceImpl implements RegistrationService{
         emailService.sendEmail(email,
                 "",
                 "",
+                "",
                 EmailTemplateName.VERIFY_EMAIL,
                 generatedActivationCode,
                 "Name Flow - Email Verification");
@@ -85,6 +86,7 @@ public class RegistrationServiceImpl implements RegistrationService{
         if(LocalDateTime.now().isAfter(verificationData.getExpiresDate())){
             String generatedActivationCode = generateActivationCode();
             emailService.sendEmail(registrationRequestDTO.getEmail(),
+                    "",
                     "",
                     "",
                     EmailTemplateName.VERIFY_EMAIL,
