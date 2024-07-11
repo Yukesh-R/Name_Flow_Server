@@ -2,6 +2,7 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.dto.CreateRelationShipDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ProjectCreateRequestDTO;
+import com.Name_Flow.Name_Flow_Server.dto.RemoveProjectAccessDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
 import com.Name_Flow.Name_Flow_Server.entity.ProjectData;
 import com.Name_Flow.Name_Flow_Server.service.project.ProjectService;
@@ -54,6 +55,13 @@ public class ProjectController {
             @PathVariable Long user_id
     ){
         return ResponseEntity.ok(projectService.getAccessProject(user_id));
+    }
+
+    @PostMapping("/delete/project-access")
+    public ResponseEntity<ResponseDTO> removeAccess(
+            @RequestBody RemoveProjectAccessDTO removeProjectAccessDTO
+    ){
+        return ResponseEntity.ok(userRelationshipService.removeAccess(removeProjectAccessDTO));
     }
 
 }
