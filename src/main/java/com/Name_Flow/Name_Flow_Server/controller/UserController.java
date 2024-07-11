@@ -1,12 +1,15 @@
 package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.dto.*;
+import com.Name_Flow.Name_Flow_Server.entity.VariableNameData;
 import com.Name_Flow.Name_Flow_Server.service.authentication.AuthenticationService;
 import com.Name_Flow.Name_Flow_Server.service.registration.RegistrationService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/name-flow")
@@ -16,12 +19,14 @@ public class UserController {
     private final RegistrationService registrationService;
     private final AuthenticationService authenticationService;
 
+
     @PostMapping("/registration/emailValidation/{email}")
     public ResponseEntity<ResponseDTO> registrationEmailValidation(
             @PathVariable String email
     ) throws MessagingException {
         return ResponseEntity.ok(registrationService.registrationEmailValidation(email));
     }
+
 
     @PostMapping("registration/verification")
     public ResponseDTO verifyActivationCode(
