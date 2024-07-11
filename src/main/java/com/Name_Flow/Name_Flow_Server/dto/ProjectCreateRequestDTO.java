@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 public class ProjectCreateRequestDTO {
 
-    private String userId;
+    private Long userId;
 
     private String projectName;
 
