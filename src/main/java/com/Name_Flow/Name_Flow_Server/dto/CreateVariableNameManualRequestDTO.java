@@ -7,12 +7,17 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CreateVariableNameResponseDTO {
+@NoArgsConstructor
+@Builder
+@Data
+public class CreateVariableNameManualRequestDTO {
+    private Long userId;
+    private Long projectId;
     private String variableName;
-    private String dataType;
+    private String dataType ;
+    private String description;
     private String variableType;
+
+
 }

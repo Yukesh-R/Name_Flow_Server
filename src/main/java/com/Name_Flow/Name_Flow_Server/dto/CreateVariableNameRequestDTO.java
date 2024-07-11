@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateVariableNameRequestDTO {
+    private Long userId;
+    private Long projectId;
     private String dataType;
-    private String variableUseCase ;
+    private String description ;
     private String variableType;
 }
