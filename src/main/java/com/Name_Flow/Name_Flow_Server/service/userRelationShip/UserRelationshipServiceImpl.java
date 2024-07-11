@@ -80,6 +80,32 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
         List<WaitingUserSharedRelationData> sharedData = waitingUserSharedRelationDataRepository.findAllBySharedUserId(
                 accepted_user_id
         );
-        return null;
+
+        List<WaitingUserAccessRelationData> provideData = waitingUserAccessRelationDataRepository.findAllByUserId(
+                accepted_user_id
+        );
+        for(WaitingUserSharedRelationData eachSharedData : sharedData){
+            UserSharedRelationData sharedUser = UserSharedRelationData.builder()
+                    .userId(eachSharedData.getUserId())
+                    .sharedUserId(eachSharedData.getSharedUserId())
+                    .sharedProjectId(eachSharedData.getSharedProjectId())
+                    .build();
+            userSharedRelationDataRepository.save(sharedUser);
+            waitingUserSharedRelationDataRepository.deleteById(sharedUser.getId());
+        }
+        for(WaitingUserAccessRelationData eachProvideData : provideData){
+            UserAccessRelationData provideUser = UserAccessRelationData.builder()
+                    .userId(eachProvideData.getUserId())
+                    .accessUserId(eachProvideData.getAccessUserId())
+                    .accessProjectId(eachProvideData.getAccessProjectId())
+                    .build();
+            userAccessRelationDataRepository.save(provideUser);
+            waitingUserAccessRelationDataRepository.deleteById(provideUser.getId());
+        }
+
+        return ResponseDTO.builder()
+                .status(true)
+                .message("Access Accepted Successfully")
+                .build();
     }
 }

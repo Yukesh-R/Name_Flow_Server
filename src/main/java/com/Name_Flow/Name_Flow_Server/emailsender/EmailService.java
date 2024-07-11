@@ -48,6 +48,7 @@ public class EmailService {
                 Map<String,Object> properties = new HashMap<>();
                 properties.put("userName",fullName);
                 properties.put("activationCode",activationCode);
+                properties.put("accessProvider",accessProvider);
 
                 Context context = new Context();
                 context.setVariables(properties);

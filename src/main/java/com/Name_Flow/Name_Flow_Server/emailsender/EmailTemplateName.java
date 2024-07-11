@@ -7,11 +7,7 @@ public enum EmailTemplateName {
 
     VERIFY_EMAIL("verify_email"),
 
-    ACCESS_NOTIFY("access_notify"),
-
-    ACCESS_ACCEPTED("access_accepted"),
-
-    ACCESS_REJECTED("access_rejected");
+    ACCESS_NOTIFY("access_notify");
 
     private final String templateName;
 
