@@ -23,7 +23,7 @@ public class ProjectData {
     private Long id;
 
     @Column(name="user_id")
-    private String userId;
+    private Long userId;
 
     @Column(name="project_name")
     private String projectName;

@@ -3,6 +3,7 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.ai.service.AIService;
 import com.Name_Flow.Name_Flow_Server.dto.*;
+import com.Name_Flow.Name_Flow_Server.entity.VariableNameData;
 import com.Name_Flow.Name_Flow_Server.service.authentication.AuthenticationService;
 import com.Name_Flow.Name_Flow_Server.service.variableSuggest.VariableSuggestService;
 import com.Name_Flow.Name_Flow_Server.service.registration.RegistrationService;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/name-flow")
@@ -21,8 +24,7 @@ public class UserController {
     private final VariableSuggestService variableSuggestService;
     private final AuthenticationService authenticationService;
 
-    @Qualifier("AIService")
-    private final AIService aiService;
+
 
 
     @PostMapping("/registration/emailValidation/{email}")
@@ -40,6 +42,21 @@ public class UserController {
     @PostMapping("/create-variable-name-manual")
     public ResponseEntity<ResponseDTO> variableSuggester(@RequestBody CreateVariableNameManualRequestDTO createVariableNameManualRequestDTO) {
         return variableSuggestService.createVariableNameManual(createVariableNameManualRequestDTO);
+    }
+
+    @PostMapping("/get-variable-name")
+    public ResponseEntity<List<VariableNameData>> getVariableName(@RequestBody GetVariableRequestDTO getVariableRequestDTO) {
+        return variableSuggestService.getVariableName(getVariableRequestDTO);
+    }
+
+    @PostMapping("/update-variable")
+    public ResponseEntity<ResponseDTO> updateVariable(@RequestBody UpdateVariableDTO updateVariableDTO) {
+        return variableSuggestService.updateVariable(updateVariableDTO);
+    }
+
+    @PostMapping("/delete-variable")
+    public ResponseEntity<ResponseDTO> deleteVariable(@RequestBody DeleteVariableDTO deleteVariableDTO) {
+        return variableSuggestService.deleteVariable(deleteVariableDTO);
     }
 
 
