@@ -7,7 +7,9 @@ public enum EmailTemplateName {
 
     VERIFY_EMAIL("verify_email"),
 
-    ACCESS_NOTIFY("access_notify");
+    ACCESS_NOTIFY("access_notify"),
+
+    ACCESS_REMOVE("access_remove");
 
     private final String templateName;
 

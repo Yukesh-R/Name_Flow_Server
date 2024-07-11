@@ -11,4 +11,6 @@ public interface UserAuthenticationRepository extends JpaRepository<UserAuthenti
 
     boolean existsByEmail(String email);
 
+    UserAuthentication findByUserId(Long usedId);
+
 }

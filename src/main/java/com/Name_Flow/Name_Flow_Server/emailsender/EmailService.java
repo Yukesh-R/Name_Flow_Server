@@ -31,6 +31,7 @@ public class EmailService {
             String toEmail,
             String fullName,
             String accessProvider,
+            String projectName,
             EmailTemplateName emailTemplateName,
             String activationCode,
             String subject
@@ -49,6 +50,7 @@ public class EmailService {
                 properties.put("userName",fullName);
                 properties.put("activationCode",activationCode);
                 properties.put("accessProvider",accessProvider);
+                properties.put("projectName",projectName);
 
                 Context context = new Context();
                 context.setVariables(properties);

@@ -60,7 +60,7 @@ public class ProjectController {
     @PostMapping("/delete/project-access")
     public ResponseEntity<ResponseDTO> removeAccess(
             @RequestBody RemoveProjectAccessDTO removeProjectAccessDTO
-    ){
+    ) throws MessagingException {
         return ResponseEntity.ok(userRelationshipService.removeAccess(removeProjectAccessDTO));
     }
 
