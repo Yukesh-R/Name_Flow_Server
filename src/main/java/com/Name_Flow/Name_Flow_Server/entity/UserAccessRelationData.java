@@ -29,7 +29,4 @@ public class UserAccessRelationData {
     @Column(name="access_project_id")
     private Long accessProjectId;
 
-    @Column(name="is_access_accepted")
-    private boolean isAccessAccepted;
-
 }

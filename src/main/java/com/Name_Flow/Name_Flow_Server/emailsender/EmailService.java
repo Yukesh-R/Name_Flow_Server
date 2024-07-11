@@ -30,6 +30,7 @@ public class EmailService {
     public void sendEmail(
             String toEmail,
             String fullName,
+            String accessProvider,
             EmailTemplateName emailTemplateName,
             String activationCode,
             String subject
