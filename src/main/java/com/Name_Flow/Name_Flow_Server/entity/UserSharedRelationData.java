@@ -6,32 +6,30 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name="veirification_data")
+@Table(name="user_shared_relation_data")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class VerificationData {
+public class UserSharedRelationData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auto_id")
     private Long id;
 
-    @Column(name="email")
-    private String email;
+    @Column(name="user_id")
+    private Long userId;
 
-    @Column(name="activationCode")
-    private String activationCode;
+    @Column(name="shared_user_id")
+    private Long sharedUserId;
 
-    @Column(name="createdData")
-    private LocalDateTime createdDate;
+    @Column(name="shared_project_id")
+    private Long sharedProjectId;
 
-    @Column(name="expiresData")
-    private LocalDateTime expiresDate;
+    @Column(name="is_relationship_accpeted")
+    private boolean isRelationshipAccepted;
 
 }
