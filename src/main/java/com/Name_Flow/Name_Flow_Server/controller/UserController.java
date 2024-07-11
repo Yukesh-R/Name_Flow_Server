@@ -2,12 +2,10 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 
 import com.Name_Flow.Name_Flow_Server.ai.service.AIService;
-
 import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.service.authentication.AuthenticationService;
 import com.Name_Flow.Name_Flow_Server.service.userRelationShip.UserRelationshipService;
 import com.Name_Flow.Name_Flow_Server.service.variableSuggest.VariableSuggestService;
-
 import com.Name_Flow.Name_Flow_Server.service.registration.RegistrationService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +33,14 @@ public class UserController {
         return ResponseEntity.ok(registrationService.registrationEmailValidation(email));
     }
 
-    @PostMapping("/get-variable-name")
-    public ResponseEntity<CreateVariableNameResponseDTO> variableSuggester(@RequestBody CreateVariableNameRequestDTO variableSuggestRequestDTO) {
+    @PostMapping("/create-variable-name-ai")
+    public ResponseEntity<ResponseDTO> variableSuggester(@RequestBody CreateVariableNameRequestDTO variableSuggestRequestDTO) {
         return variableSuggestService.variableSuggester(variableSuggestRequestDTO);
+    }
+
+    @PostMapping("/create-variable-name-manual")
+    public ResponseEntity<ResponseDTO> variableSuggester(@RequestBody CreateVariableNameManualRequestDTO createVariableNameManualRequestDTO) {
+        return variableSuggestService.createVariableNameManual(createVariableNameManualRequestDTO);
     }
 
     @PostMapping("registration/verification")
