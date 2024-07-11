@@ -68,7 +68,9 @@ public class JwtFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
         return request.getServletPath().contains("/nameFlow/registration/emailValidation")
 
-                || request.getServletPath().contains("/name-flow/get-variable-name")
+                || request.getServletPath().contains("/name-flow/create-variable-name-ai")
+
+                || request.getServletPath().contains("/name-flow/create-variable-name-manual")
 
                 || request.getServletPath().contains("/nameFlow/registration/verification");
 
