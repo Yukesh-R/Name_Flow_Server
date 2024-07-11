@@ -7,13 +7,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="user_shared_relation_data")
+@Table(name="waiting_user_access_relation_data")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class UserSharedRelationData {
+public class WaitingUserAccessRelationData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class UserSharedRelationData {
     @Column(name="user_id")
     private Long userId;
 
-    @Column(name="shared_user_id")
-    private Long sharedUserId;
+    @Column(name="access_user_id")
+    private Long accessUserId;
 
-    @Column(name="shared_project_id")
-    private Long sharedProjectId;
+    @Column(name="access_project_id")
+    private Long accessProjectId;
 
 }
