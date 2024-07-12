@@ -9,7 +9,9 @@ public enum EmailTemplateName {
 
     ACCESS_NOTIFY("access_notify"),
 
-    ACCESS_REMOVE("access_remove");
+    ACCESS_REMOVE("access_remove"),
+
+    FORGET_PASSWORD_EMAIL("forget_password_email");
 
     private final String templateName;
 
