@@ -2,6 +2,7 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.service.authentication.AuthenticationService;
+import com.Name_Flow.Name_Flow_Server.service.forgetPassword.ForgetPasswordService;
 import com.Name_Flow.Name_Flow_Server.service.registration.RegistrationService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class UserController {
 
     private final RegistrationService registrationService;
     private final AuthenticationService authenticationService;
-
+    private final ForgetPasswordService forgetPasswordService;
 
     @PostMapping("/registration/email-validation/{email}")
     public ResponseEntity<ResponseDTO> registrationEmailValidation(
@@ -37,6 +38,20 @@ public class UserController {
             @RequestBody AuthenticationRequestDTO authenticationRequestDTO
     ) {
         return ResponseEntity.ok(authenticationService.authenticate(authenticationRequestDTO));
+    }
+
+    @PostMapping("/forget-password/{email}")
+    public ResponseEntity<ResponseDTO> forgetPasswordMailSend(
+            @PathVariable String email
+    ) throws MessagingException {
+        return ResponseEntity.ok(forgetPasswordService.forgetPasswordMailSend(email));
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<ResponseDTO> verifyAndResetPassword(
+            @RequestBody VerifyResetPasswordDTO verifyResetPasswordDTO
+    ) throws MessagingException {
+        return ResponseEntity.ok(forgetPasswordService.verifyAndResetPassword(verifyResetPasswordDTO));
     }
 
 }
