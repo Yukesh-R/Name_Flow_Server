@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 public class AuthenticationResponseDTO {
 
+    private Long userId;
+
     private String firstName;
 
     private String lastName;

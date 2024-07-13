@@ -48,6 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String generatedJwtToken = jwtService.generateToken(claims,user);
 
         return AuthenticationResponseDTO.builder()
+                .userId(userAuthentication.getUserId())
                 .firstName(userData.getFirstName())
                 .lastName(userData.getLastName())
                 .gender(userData.getGender())

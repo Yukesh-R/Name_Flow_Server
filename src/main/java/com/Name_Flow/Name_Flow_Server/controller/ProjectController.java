@@ -22,7 +22,7 @@ public class ProjectController {
     private final UserRelationshipService userRelationshipService;
     private final ProjectService projectService;
 
-    @PostMapping("create/new-project")
+    @PostMapping("/create/new-project")
     public ResponseEntity<ResponseDTO> createProject(
             @RequestBody ProjectCreateRequestDTO projectCreateRequestDTO
     ){
@@ -36,21 +36,21 @@ public class ProjectController {
         return ResponseEntity.ok(userRelationshipService.createRelationship(createRelationShipDTO));
     }
 
-    @PostMapping("/create/accept-access/{accepted_used_id}")
+    @GetMapping("/create/accept-access/{accepted_used_id}")
     public ResponseEntity<ResponseDTO> relationAccessAcceptance(
             @PathVariable Long accepted_used_id
     ){
         return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accepted_used_id));
     }
 
-    @PostMapping("/read/own-project/{user_id}")
+    @GetMapping("/read/own-project/{user_id}")
     public ResponseEntity<List<ProjectData>> getOwnProjects(
             @PathVariable Long user_id
     ){
         return ResponseEntity.ok(projectService.getOwnProjects(user_id));
     }
 
-    @PostMapping("/read/access-project/{user_id}")
+    @GetMapping("/read/access-project/{user_id}")
     public ResponseEntity<List<ProjectData>> getAccessProject(
             @PathVariable Long user_id
     ){
