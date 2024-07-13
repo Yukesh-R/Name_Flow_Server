@@ -18,19 +18,18 @@ public class UserController {
     private final AuthenticationService authenticationService;
     private final ForgetPasswordService forgetPasswordService;
 
-    @PostMapping("/registration/email-validation/{email}")
+    @GetMapping("/registration/email-validation/{email}")
     public ResponseEntity<ResponseDTO> registrationEmailValidation(
             @PathVariable String email
     ) throws MessagingException {
         return ResponseEntity.ok(registrationService.registrationEmailValidation(email));
     }
 
-
-    @PostMapping("registration/verification")
-    public ResponseDTO verifyActivationCode(
+    @PostMapping("/registration/verification")
+    public ResponseEntity<ResponseDTO> verifyActivationCode(
             @RequestBody RegistrationRequestDTO registrationRequestDTO
             ) throws MessagingException {
-        return registrationService.verifyActivationCode(registrationRequestDTO);
+        return ResponseEntity.ok(registrationService.verifyActivationCode(registrationRequestDTO));
     }
 
     @PostMapping("/authentication")
@@ -40,7 +39,7 @@ public class UserController {
         return ResponseEntity.ok(authenticationService.authenticate(authenticationRequestDTO));
     }
 
-    @PostMapping("/forget-password/{email}")
+    @GetMapping("/forget-password/{email}")
     public ResponseEntity<ResponseDTO> forgetPasswordMailSend(
             @PathVariable String email
     ) throws MessagingException {
