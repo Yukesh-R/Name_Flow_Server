@@ -98,8 +98,8 @@ public class ForgetPasswordServiceImpl implements ForgetPasswordService{
                     .message("Activation Code has been Expired , New Activation Code sent Successfully")
                     .build();
         }
-        UserAuthentication resetPasswordUser = userAuthenticationRepository.findByUserId(
-                verifyResetPasswordDTO.getUserId()
+        UserAuthentication resetPasswordUser = userAuthenticationRepository.findByEmail(
+                verifyResetPasswordDTO.getEmail()
         );
         resetPasswordUser.setPassword(passwordEncoder.encode(verifyResetPasswordDTO.getNewPassword()));
         userAuthenticationRepository.save(resetPasswordUser);
