@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 public class VerifyResetPasswordDTO {
 
-    private Long userId;
-
     private String email;
 
     private String activationCode;

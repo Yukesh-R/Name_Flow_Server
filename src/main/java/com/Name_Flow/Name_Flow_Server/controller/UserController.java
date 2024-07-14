@@ -43,6 +43,7 @@ public class UserController {
     public ResponseEntity<ResponseDTO> forgetPasswordMailSend(
             @PathVariable String email
     ) throws MessagingException {
+        System.out.println(email);
         return ResponseEntity.ok(forgetPasswordService.forgetPasswordMailSend(email));
     }
 
