@@ -1,9 +1,6 @@
 package com.Name_Flow.Name_Flow_Server.controller;
 
-import com.Name_Flow.Name_Flow_Server.dto.CreateRelationShipDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ProjectCreateRequestDTO;
-import com.Name_Flow.Name_Flow_Server.dto.RemoveProjectAccessDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.entity.ProjectData;
 import com.Name_Flow.Name_Flow_Server.service.project.ProjectService;
 import com.Name_Flow.Name_Flow_Server.service.userRelationShip.UserRelationshipService;
@@ -13,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/name-flow")
@@ -36,11 +34,18 @@ public class ProjectController {
         return ResponseEntity.ok(userRelationshipService.createRelationship(createRelationShipDTO));
     }
 
-    @GetMapping("/create/accept-access/{accepted_used_id}")
-    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
-            @PathVariable Long accepted_used_id
+    @GetMapping("/access-providers/{user_id}")
+    public ResponseEntity<List<AccessProviderDTO>> getAccessProviders(
+            @PathVariable Long user_id
     ){
-        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accepted_used_id));
+        return ResponseEntity.ok(userRelationshipService.getAccessProviders(user_id));
+    }
+
+    @PostMapping("/project-accept-access")
+    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
+            @RequestBody AccessAcceptDTO accessAcceptDTO
+    ){
+        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accessAcceptDTO));
     }
 
     @GetMapping("/read/own-project/{user_id}")

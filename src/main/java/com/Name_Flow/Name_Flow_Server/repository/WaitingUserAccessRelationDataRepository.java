@@ -9,6 +9,10 @@ import java.util.List;
 @Repository
 public interface WaitingUserAccessRelationDataRepository extends JpaRepository<WaitingUserAccessRelationData,Long> {
 
-    List<WaitingUserAccessRelationData> findAllByUserId(Long user_id);
+    WaitingUserAccessRelationData findByUserIdAndAccessUserIdAndAccessProjectId(
+            Long usedId,
+            Long accessUserId,
+            Long projectId
+    );
 
 }
