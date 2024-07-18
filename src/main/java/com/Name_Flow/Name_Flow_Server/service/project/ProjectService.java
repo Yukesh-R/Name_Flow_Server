@@ -1,7 +1,9 @@
 package com.Name_Flow.Name_Flow_Server.service.project;
 
+import com.Name_Flow.Name_Flow_Server.dto.DeleteProjectDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ProjectCreateRequestDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.UpdateProjectDTO;
 import com.Name_Flow.Name_Flow_Server.entity.ProjectData;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +17,11 @@ public interface ProjectService {
     List<ProjectData> getOwnProjects(Long user_id);
 
     List<ProjectData> getAccessProject(Long user_id);
+
+    ResponseDTO updateProject(UpdateProjectDTO updateProjectDTO);
+
+    ResponseDTO deleteProject(DeleteProjectDTO deleteProjectDTO);
+
+
 
 }

@@ -82,9 +82,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
                 || request.getServletPath().contains("/name-flow/authentication")
 
-                || request.getServletPath().contains("/name-flow/forget-password")
+                || request.getServletPath().contains("/name-flow/forget-password");
 
-                || request.getServletPath().contains("/name-flow/reset-password");
+
 
     }
 }

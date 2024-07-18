@@ -113,7 +113,7 @@ public class VariableSuggestServiceImple implements VariableSuggestService {
     public ResponseEntity<ResponseDTO> deleteVariable(DeleteVariableDTO deleteVariableDTO) {
 
         VariableNameData variableNameData = variableNameDataRepository.findById(deleteVariableDTO.getVariableId());
-
+        System.out.println(variableNameData+"from service");
         if (variableNameData.getUserId().equals(deleteVariableDTO.getUserId())
                 && Objects.equals(variableNameData.getProjectId(), deleteVariableDTO.getProjectId()) )
         {
