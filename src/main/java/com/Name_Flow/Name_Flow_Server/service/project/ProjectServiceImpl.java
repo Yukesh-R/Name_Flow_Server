@@ -1,7 +1,9 @@
 package com.Name_Flow.Name_Flow_Server.service.project;
 
+import com.Name_Flow.Name_Flow_Server.dto.DeleteProjectDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ProjectCreateRequestDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.UpdateProjectDTO;
 import com.Name_Flow.Name_Flow_Server.entity.ProjectData;
 import com.Name_Flow.Name_Flow_Server.entity.UserAccessRelationData;
 import com.Name_Flow.Name_Flow_Server.repository.ProjectDataRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -63,5 +66,28 @@ public class ProjectServiceImpl implements ProjectService {
             accessProject.addAll(temp);
         }
         return accessProject;
+    }
+
+    @Override
+    public ResponseDTO updateProject(UpdateProjectDTO updateProjectDTO) {
+        ProjectData projectData = projectDataRepository.findById(updateProjectDTO.getProjectId()).orElseThrow();
+        if (Objects.equals(projectData.getUserId(), updateProjectDTO.getUserId())) {
+            projectData.setProjectName(updateProjectDTO.getProjectName());
+            projectData.setProjectDescription(updateProjectDTO.getProjectDescription());
+            projectData.setTechStackDescription(updateProjectDTO.getTechStackDescription());
+            projectData.setProjectContributors(updateProjectDTO.getProjectContributors());
+            projectDataRepository.save(projectData);
+        }else{
+            return ResponseDTO.builder().
+                    status(false)
+                    .message("Owners of the Project can only Update the details").build();
+        }
+        return ResponseDTO.builder().status(true)
+                .message("Sucessfully Updated").build();
+    }
+
+    @Override
+    public ResponseDTO deleteProject(DeleteProjectDTO deleteProjectDTO) {
+        return null;
     }
 }

@@ -1,9 +1,6 @@
 package com.Name_Flow.Name_Flow_Server.controller;
 
-import com.Name_Flow.Name_Flow_Server.dto.CreateRelationShipDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ProjectCreateRequestDTO;
-import com.Name_Flow.Name_Flow_Server.dto.RemoveProjectAccessDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.entity.ProjectData;
 import com.Name_Flow.Name_Flow_Server.service.project.ProjectService;
 import com.Name_Flow.Name_Flow_Server.service.userRelationShip.UserRelationshipService;
@@ -47,6 +44,7 @@ public class ProjectController {
     public ResponseEntity<List<ProjectData>> getOwnProjects(
             @PathVariable Long user_id
     ){
+        System.out.println(user_id);
         return ResponseEntity.ok(projectService.getOwnProjects(user_id));
     }
 
@@ -62,6 +60,11 @@ public class ProjectController {
             @RequestBody RemoveProjectAccessDTO removeProjectAccessDTO
     ) throws MessagingException {
         return ResponseEntity.ok(userRelationshipService.removeAccess(removeProjectAccessDTO));
+    }
+
+    @PostMapping("/update-project")
+    public ResponseEntity<ResponseDTO> updateProject(@RequestBody UpdateProjectDTO updateProjectDTO) throws MessagingException {
+        return ResponseEntity.ok(projectService.updateProject(updateProjectDTO));
     }
 
 }

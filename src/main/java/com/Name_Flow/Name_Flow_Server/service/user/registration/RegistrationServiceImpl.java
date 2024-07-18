@@ -1,4 +1,4 @@
-package com.Name_Flow.Name_Flow_Server.service.registration;
+package com.Name_Flow.Name_Flow_Server.service.user.registration;
 
 import com.Name_Flow.Name_Flow_Server.dto.RegistrationRequestDTO;
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;

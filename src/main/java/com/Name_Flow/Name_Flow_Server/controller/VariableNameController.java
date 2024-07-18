@@ -41,6 +41,7 @@ public class VariableNameController {
 
     @PostMapping("/delete-variable")
     public ResponseEntity<ResponseDTO> deleteVariable(@RequestBody DeleteVariableDTO deleteVariableDTO) {
+        System.out.println(deleteVariableDTO);
         return variableSuggestService.deleteVariable(deleteVariableDTO);
     }
 
