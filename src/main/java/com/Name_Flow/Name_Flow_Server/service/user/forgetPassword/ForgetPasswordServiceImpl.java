@@ -1,4 +1,4 @@
-package com.Name_Flow.Name_Flow_Server.service.forgetPassword;
+package com.Name_Flow.Name_Flow_Server.service.user.forgetPassword;
 
 import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
 import com.Name_Flow.Name_Flow_Server.dto.VerifyResetPasswordDTO;

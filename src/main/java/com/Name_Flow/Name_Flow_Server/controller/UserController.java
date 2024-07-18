@@ -2,7 +2,7 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.service.user.authentication.AuthenticationService;
-import com.Name_Flow.Name_Flow_Server.service.forgetPassword.ForgetPasswordService;
+import com.Name_Flow.Name_Flow_Server.service.user.forgetPassword.ForgetPasswordService;
 import com.Name_Flow.Name_Flow_Server.service.user.registration.RegistrationService;
 import com.Name_Flow.Name_Flow_Server.service.user.update.UpdateService;
 import jakarta.mail.MessagingException;
