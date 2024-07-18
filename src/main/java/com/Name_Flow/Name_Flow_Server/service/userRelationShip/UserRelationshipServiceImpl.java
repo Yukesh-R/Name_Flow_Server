@@ -1,8 +1,6 @@
 package com.Name_Flow.Name_Flow_Server.service.userRelationShip;
 
-import com.Name_Flow.Name_Flow_Server.dto.CreateRelationShipDTO;
-import com.Name_Flow.Name_Flow_Server.dto.RemoveProjectAccessDTO;
-import com.Name_Flow.Name_Flow_Server.dto.ResponseDTO;
+import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.emailsender.EmailService;
 import com.Name_Flow.Name_Flow_Server.emailsender.EmailTemplateName;
 import com.Name_Flow.Name_Flow_Server.entity.*;
@@ -12,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -80,32 +78,40 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
     }
 
     @Override
-    public ResponseDTO relationAccessAcceptance(Long accepted_user_id) {
-        List<WaitingUserSharedRelationData> sharedData = waitingUserSharedRelationDataRepository.findAllBySharedUserId(
-                accepted_user_id
-        );
+    public ResponseDTO relationAccessAcceptance(AccessAcceptDTO accessAcceptDTO) {
+        WaitingUserAccessRelationData waitingAccess = waitingUserAccessRelationDataRepository
+                .findByUserIdAndAccessUserIdAndAccessProjectId(
+                        accessAcceptDTO.getUsedId(),
+                        accessAcceptDTO.getAccessProviderId(),
+                        accessAcceptDTO.getAccessProjectId()
+                );
 
-        List<WaitingUserAccessRelationData> provideData = waitingUserAccessRelationDataRepository.findAllByUserId(
-                accepted_user_id
-        );
-        for(WaitingUserSharedRelationData eachSharedData : sharedData){
-            UserSharedRelationData sharedUser = UserSharedRelationData.builder()
-                    .userId(eachSharedData.getUserId())
-                    .sharedUserId(eachSharedData.getSharedUserId())
-                    .sharedProjectId(eachSharedData.getSharedProjectId())
-                    .build();
-            userSharedRelationDataRepository.save(sharedUser);
-            waitingUserSharedRelationDataRepository.deleteById(sharedUser.getId());
-        }
-        for(WaitingUserAccessRelationData eachProvideData : provideData){
-            UserAccessRelationData provideUser = UserAccessRelationData.builder()
-                    .userId(eachProvideData.getUserId())
-                    .accessUserId(eachProvideData.getAccessUserId())
-                    .accessProjectId(eachProvideData.getAccessProjectId())
-                    .build();
-            userAccessRelationDataRepository.save(provideUser);
-            waitingUserAccessRelationDataRepository.deleteById(provideUser.getId());
-        }
+        UserAccessRelationData userAccess = UserAccessRelationData.builder()
+                .accessProjectId(waitingAccess.getAccessProjectId())
+                .accessUserId(waitingAccess.getAccessUserId())
+                .userId(waitingAccess.getUserId())
+                .build();
+
+        userAccessRelationDataRepository.save(userAccess);
+
+        waitingUserAccessRelationDataRepository.delete(waitingAccess);
+
+        WaitingUserSharedRelationData waitingShared = waitingUserSharedRelationDataRepository
+                .findBySharedProjectIdAndSharedUserIdAndUserId(
+                        accessAcceptDTO.getAccessProjectId(),
+                        accessAcceptDTO.getUsedId(),
+                        accessAcceptDTO.getAccessProviderId()
+                );
+
+        UserSharedRelationData userShared = UserSharedRelationData.builder()
+                .sharedProjectId(waitingShared.getSharedProjectId())
+                .sharedUserId(waitingShared.getSharedUserId())
+                .userId(waitingShared.getUserId())
+                .build();
+
+        userSharedRelationDataRepository.save(userShared);
+
+        waitingUserSharedRelationDataRepository.delete(waitingShared);
 
         return ResponseDTO.builder()
                 .status(true)
@@ -158,5 +164,26 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
                 .status(true)
                 .message("Access Removed Successfully")
                 .build();
+    }
+
+    @Override
+    public List<AccessProviderDTO> getAccessProviders(Long user_id) {
+        List<WaitingUserAccessRelationData> accessUsers = waitingUserAccessRelationDataRepository.findAll();
+
+        return accessUsers.stream()
+                .filter(access -> Objects.equals(access.getUserId(), user_id))
+                .map((WaitingUserAccessRelationData access) -> {
+                    UserData userProvide = userDataRepository.findById(access.getAccessUserId())
+                            .orElseThrow(() -> new RuntimeException("User Not Found"));
+                    ProjectData accessProject = projectDataRepository.findById(access.getAccessProjectId())
+                            .orElseThrow(() -> new RuntimeException("Project Not Found"));
+                    return AccessProviderDTO.builder()
+                            .accessProviderId(userProvide.getId())
+                            .accessProjectId(accessProject.getId())
+                            .accessProviderName(userProvide.getFirstName()+userProvide.getLastName())
+                            .accessProjectName(accessProject.getProjectName())
+                            .build();
+                })
+                .toList();
     }
 }

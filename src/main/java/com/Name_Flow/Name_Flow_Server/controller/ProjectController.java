@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/name-flow")
@@ -33,11 +34,18 @@ public class ProjectController {
         return ResponseEntity.ok(userRelationshipService.createRelationship(createRelationShipDTO));
     }
 
-    @GetMapping("/create/accept-access/{accepted_used_id}")
-    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
-            @PathVariable Long accepted_used_id
+    @GetMapping("/access-providers/{user_id}")
+    public ResponseEntity<List<AccessProviderDTO>> getAccessProviders(
+            @PathVariable Long user_id
     ){
-        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accepted_used_id));
+        return ResponseEntity.ok(userRelationshipService.getAccessProviders(user_id));
+    }
+
+    @PostMapping("/project-accept-access")
+    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
+            @RequestBody AccessAcceptDTO accessAcceptDTO
+    ){
+        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accessAcceptDTO));
     }
 
     @GetMapping("/read/own-project/{user_id}")
