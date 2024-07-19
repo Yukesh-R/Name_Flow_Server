@@ -57,12 +57,16 @@ public class UserController {
     }
 
     @PostMapping("/update-user")
-    public ResponseEntity<ResponseDTO> updateUser(UpdateUserDetailsDTO updateUserDetailsDTO) throws MessagingException {
+    public ResponseEntity<ResponseDTO> updateUser(
+            @RequestBody UpdateUserDetailsDTO updateUserDetailsDTO
+    ) throws MessagingException {
         return ResponseEntity.ok(updateService.updateUser(updateUserDetailsDTO));
     }
 
     @GetMapping("/delete-user/{userId}")
-    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable Long userId) throws MessagingException {
+    public ResponseEntity<ResponseDTO> deleteUser(
+            @PathVariable Long userId
+    ) throws MessagingException {
         return ResponseEntity.ok(updateService.deleteUser(userId));
     }
 
