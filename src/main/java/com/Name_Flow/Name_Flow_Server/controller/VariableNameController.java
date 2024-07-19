@@ -20,27 +20,37 @@ public class VariableNameController {
     private final VariableSuggestService variableSuggestService;
 
     @PostMapping("/create-variable-name-ai")
-    public ResponseEntity<ResponseDTO> variableSuggester(@RequestBody CreateVariableNameRequestDTO variableSuggestRequestDTO) {
+    public ResponseEntity<ResponseDTO> variableSuggester(
+            @RequestBody CreateVariableNameRequestDTO variableSuggestRequestDTO
+    ) {
         return variableSuggestService.variableSuggester(variableSuggestRequestDTO);
     }
 
     @PostMapping("/create-variable-name-manual")
-    public ResponseEntity<ResponseDTO> variableSuggester(@RequestBody CreateVariableNameManualRequestDTO createVariableNameManualRequestDTO) {
+    public ResponseEntity<ResponseDTO> variableSuggester(
+            @RequestBody CreateVariableNameManualRequestDTO createVariableNameManualRequestDTO
+    ) {
         return variableSuggestService.createVariableNameManual(createVariableNameManualRequestDTO);
     }
 
     @PostMapping("/get-variable-name")
-    public ResponseEntity<List<VariableNameData>> getVariableName(@RequestBody GetVariableRequestDTO getVariableRequestDTO) {
+    public ResponseEntity<List<VariableNameData>> getVariableName(
+            @RequestBody GetVariableRequestDTO getVariableRequestDTO
+    ) {
         return variableSuggestService.getVariableName(getVariableRequestDTO);
     }
 
     @PostMapping("/update-variable")
-    public ResponseEntity<ResponseDTO> updateVariable(@RequestBody UpdateVariableDTO updateVariableDTO) {
+    public ResponseEntity<ResponseDTO> updateVariable(
+            @RequestBody UpdateVariableDTO updateVariableDTO
+    ) {
         return variableSuggestService.updateVariable(updateVariableDTO);
     }
 
     @PostMapping("/delete-variable")
-    public ResponseEntity<ResponseDTO> deleteVariable(@RequestBody DeleteVariableDTO deleteVariableDTO) {
+    public ResponseEntity<ResponseDTO> deleteVariable(
+            @RequestBody DeleteVariableDTO deleteVariableDTO
+    ) {
         System.out.println(deleteVariableDTO);
         return variableSuggestService.deleteVariable(deleteVariableDTO);
     }

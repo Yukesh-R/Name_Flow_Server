@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/name-flow")
@@ -52,7 +51,6 @@ public class ProjectController {
     public ResponseEntity<List<ProjectData>> getOwnProjects(
             @PathVariable Long user_id
     ){
-        System.out.println(user_id);
         return ResponseEntity.ok(projectService.getOwnProjects(user_id));
     }
 
@@ -71,7 +69,9 @@ public class ProjectController {
     }
 
     @PostMapping("/update-project")
-    public ResponseEntity<ResponseDTO> updateProject(@RequestBody UpdateProjectDTO updateProjectDTO) throws MessagingException {
+    public ResponseEntity<ResponseDTO> updateProject(
+            @RequestBody UpdateProjectDTO updateProjectDTO
+    ) throws MessagingException {
         return ResponseEntity.ok(projectService.updateProject(updateProjectDTO));
     }
 
