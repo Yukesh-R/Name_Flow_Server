@@ -31,7 +31,6 @@ public class VariableSuggestServiceImple implements VariableSuggestService {
         ObjectNode responseFromAI = aiService.getResponse("I am creating an web application for that Suggest me an single " + variableSuggestRequestDTO.getVariableType() + "name of datatype" + variableSuggestRequestDTO.getDataType() +
                 "for storing " + variableSuggestRequestDTO.getDescription() + " in typescript without any explaination and the response should be only an single word and dont't leave any response empty ?");
 
-        System.out.println(responseFromAI);
         String suggestedVariableName = aiService.extractText(responseFromAI);
 
         CreateVariableNameManualRequestDTO createVariableNameManualRequestDTO = CreateVariableNameManualRequestDTO.builder()
@@ -75,14 +74,8 @@ public class VariableSuggestServiceImple implements VariableSuggestService {
     @Override
     public ResponseEntity<List<VariableNameData>> getVariableName(GetVariableRequestDTO getVariableRequestDTO) {
 
-        ProjectData projectData = projectDataRepository.findById(getVariableRequestDTO.getProjectId()).orElseThrow();
-
-        if (Objects.equals(projectData.getUserId(), getVariableRequestDTO.getUserId())) {
-
-            return ResponseEntity.ok(variableNameDataRepository.findByProjectId(getVariableRequestDTO.getProjectId()));
-        } else {
-            return null;
-        }
+        return ResponseEntity.ok(variableNameDataRepository.findAllByProjectId(
+                getVariableRequestDTO.getProjectId()));
     }
 
     @Override
