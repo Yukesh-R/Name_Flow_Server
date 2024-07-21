@@ -52,10 +52,12 @@ public class UserController {
     public ResponseEntity<ResponseDTO> verifyAndResetPassword(
             @RequestBody VerifyResetPasswordDTO verifyResetPasswordDTO
     ) throws MessagingException {
+        System.out.println(verifyResetPasswordDTO);
         return ResponseEntity.ok(forgetPasswordService.verifyAndResetPassword(verifyResetPasswordDTO));
     }
 
     @PostMapping("/update-user")
+
     public ResponseEntity<ResponseDTO> updateUser(
             @RequestBody UpdateUserDetailsDTO updateUserDetailsDTO
     ) throws MessagingException {
