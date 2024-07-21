@@ -33,18 +33,24 @@ public class ProjectController {
         return ResponseEntity.ok(userRelationshipService.createRelationship(createRelationShipDTO));
     }
 
-    @GetMapping("/create/accept-access/{accepted_used_id}")
-    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
-            @PathVariable Long accepted_used_id
+    @GetMapping("/access-providers/{user_id}")
+    public ResponseEntity<List<AccessProviderDTO>> getAccessProviders(
+            @PathVariable Long user_id
     ){
-        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accepted_used_id));
+        return ResponseEntity.ok(userRelationshipService.getAccessProviders(user_id));
+    }
+
+    @PostMapping("/project-accept-access")
+    public ResponseEntity<ResponseDTO> relationAccessAcceptance(
+            @RequestBody AccessAcceptDTO accessAcceptDTO
+    ){
+        return ResponseEntity.ok(userRelationshipService.relationAccessAcceptance(accessAcceptDTO));
     }
 
     @GetMapping("/read/own-project/{user_id}")
     public ResponseEntity<List<ProjectData>> getOwnProjects(
             @PathVariable Long user_id
     ){
-        System.out.println(user_id);
         return ResponseEntity.ok(projectService.getOwnProjects(user_id));
     }
 
@@ -63,7 +69,9 @@ public class ProjectController {
     }
 
     @PostMapping("/update-project")
-    public ResponseEntity<ResponseDTO> updateProject(@RequestBody UpdateProjectDTO updateProjectDTO) throws MessagingException {
+    public ResponseEntity<ResponseDTO> updateProject(
+            @RequestBody UpdateProjectDTO updateProjectDTO
+    ) throws MessagingException {
         return ResponseEntity.ok(projectService.updateProject(updateProjectDTO));
     }
 

@@ -2,7 +2,7 @@ package com.Name_Flow.Name_Flow_Server.controller;
 
 import com.Name_Flow.Name_Flow_Server.dto.*;
 import com.Name_Flow.Name_Flow_Server.service.user.authentication.AuthenticationService;
-import com.Name_Flow.Name_Flow_Server.service.forgetPassword.ForgetPasswordService;
+import com.Name_Flow.Name_Flow_Server.service.user.forgetPassword.ForgetPasswordService;
 import com.Name_Flow.Name_Flow_Server.service.user.registration.RegistrationService;
 import com.Name_Flow.Name_Flow_Server.service.user.update.UpdateService;
 import jakarta.mail.MessagingException;
@@ -45,7 +45,6 @@ public class UserController {
     public ResponseEntity<ResponseDTO> forgetPasswordMailSend(
             @PathVariable String email
     ) throws MessagingException {
-        System.out.println(email);
         return ResponseEntity.ok(forgetPasswordService.forgetPasswordMailSend(email));
     }
 
@@ -58,13 +57,17 @@ public class UserController {
     }
 
     @PostMapping("/update-user")
-    public ResponseEntity<ResponseDTO> updateUser(@RequestBody  UpdateUserDetailsDTO updateUserDetailsDTO) throws MessagingException {
-        System.out.println(updateUserDetailsDTO);
+
+    public ResponseEntity<ResponseDTO> updateUser(
+            @RequestBody UpdateUserDetailsDTO updateUserDetailsDTO
+    ) throws MessagingException {
         return ResponseEntity.ok(updateService.updateUser(updateUserDetailsDTO));
     }
 
     @GetMapping("/delete-user/{userId}")
-    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable Long userId) throws MessagingException {
+    public ResponseEntity<ResponseDTO> deleteUser(
+            @PathVariable Long userId
+    ) throws MessagingException {
         return ResponseEntity.ok(updateService.deleteUser(userId));
     }
 

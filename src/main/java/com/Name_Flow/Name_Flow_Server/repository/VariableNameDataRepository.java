@@ -9,8 +9,8 @@ import java.util.List;
 @Repository
 public interface VariableNameDataRepository extends JpaRepository<VariableNameData, Integer> {
 
-    List<VariableNameData> findByProjectId(Long projectId);
-
     VariableNameData findById(Long id);
+
+    List<VariableNameData> findAllByProjectId(Long projectId);
 
 }
