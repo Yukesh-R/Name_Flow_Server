@@ -1,8 +1,9 @@
-FROM maven:3.9.8-amazoncorretto-21
+FROM maven:3.9.8-amazoncorretto-21 AS build
+WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
 FROM openjdk:21-slim
-COPY target/*.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT  ["java","-jar","/app.jar"]
