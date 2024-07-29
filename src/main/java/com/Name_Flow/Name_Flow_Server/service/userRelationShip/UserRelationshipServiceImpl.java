@@ -93,7 +93,6 @@ public class UserRelationshipServiceImpl implements UserRelationshipService{
                 .build();
 
         userAccessRelationDataRepository.save(userAccess);
-
         waitingUserAccessRelationDataRepository.delete(waitingAccess);
 
         WaitingUserSharedRelationData waitingShared = waitingUserSharedRelationDataRepository
